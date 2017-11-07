@@ -28,7 +28,6 @@ public class Eulerianity {
 
     public boolean isEulerianGraph(){
         BreadthFirstSearch bfs = new BreadthFirstSearch(graph);
-        bfs.tagVertices();
         if (bfs.isConnectedGraph()){
             for (int[] row: graph){
                 int deg = 0;

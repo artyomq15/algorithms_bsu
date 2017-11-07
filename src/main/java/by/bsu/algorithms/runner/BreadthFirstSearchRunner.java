@@ -22,5 +22,7 @@ public class BreadthFirstSearchRunner {
         bfs.tagVertices();
         System.out.println(bfs.getResult());
         System.out.println(bfs.isConnectedGraph());
+
+
     }
 }

@@ -26,6 +26,7 @@ public class BreadthFirstSearch {
     }
 
     public boolean isConnectedGraph(){
+        tagVertices();
         return result.size()==graph.length;
     }
 
