@@ -3,6 +3,7 @@ package by.bsu.algorithms.algorithm.maze.printer;
 
 import by.bsu.algorithms.algorithm.maze.Maze;
 import by.bsu.algorithms.algorithm.maze.MazeCell;
+import by.bsu.algorithms.algorithm.maze.MazeConstant;
 import by.bsu.algorithms.algorithm.maze.generator.MazeGenerator;
 import by.bsu.algorithms.algorithm.maze.generator.helper.GenerateHelper;
 import by.bsu.algorithms.algorithm.maze.pathfinder.helper.FindPathHelper;
@@ -11,10 +12,9 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.*;
 
-public class MazePrinter extends JPanel implements Runnable{
+public class MazePrinter extends JPanel implements Runnable {
 
     private final int START_POSITION = 0;
-    private final int SPEED_DRAWING = 1;
 
     private Maze maze;
     private MazeGenerator generator;
@@ -23,7 +23,7 @@ public class MazePrinter extends JPanel implements Runnable{
     private MazeCell finish;
 
 
-    public MazePrinter(int width, int height){
+    public MazePrinter(int width, int height) {
         generator = new MazeGenerator(width, height);
         maze = generator.getMaze();
 
@@ -51,82 +51,83 @@ public class MazePrinter extends JPanel implements Runnable{
         Graphics2D g = (Graphics2D) graphics;
         ((Graphics2D) graphics).setComposite(AlphaComposite.getInstance(AlphaComposite.SRC));
         Drawing drawing = new Drawing();
-        drawing.drawMaze(maze,g);
+        drawing.drawMaze(maze, g);
 
 
     }
 
     @Override
     public void run() {
-        MazeCell[][] cells = maze.getCells();
-        MazeCell current = cells[START_POSITION][START_POSITION];
-        MazeCell next;
 
+
+        generateMaze();
+        findPath();
+
+    }
+
+    private void generateMaze() {
         Stack<MazeCell> stack = new Stack<>();
+        MazeCell current = maze.getCells()[START_POSITION][START_POSITION];
+        MazeCell next;
 
         current.setVisited();
         stack.push(current);
-        while(!stack.isEmpty()){
+        while (!stack.isEmpty()) {
             current = stack.peek();
             current.setCurrent(true);
-            try {
-                super.repaint();
-                Thread.sleep(SPEED_DRAWING);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+            repaintMaze();
             next = GenerateHelper.getNeighbor(current, maze);
             current.setCurrent(false);
-            if (next!=null){
+            if (next != null) {
                 next.setVisited();
-                GenerateHelper.deleteWalls(current,next);
+                GenerateHelper.deleteWalls(current, next);
                 stack.push(next);
             } else {
                 stack.pop();
             }
         }
 
+    }
+
+    private void findPath() {
         Stack<MazeCell> path = new Stack<>();
+        MazeCell current = this.current;
+        MazeCell next;
 
-        path.push(this.current);
-        this.current.setFinderVisited();
-        while(!path.isEmpty()){
+        current.setFinderVisited();
+        path.push(current);
 
-            this.current = path.peek();
-            this.current.setCurrent(true);
-            try {
-                super.repaint();
-                Thread.sleep(SPEED_DRAWING);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-            next = FindPathHelper.getAvailableNeighbor(this.current, maze);
+        do {
+            current.setCurrent(true);
+            repaintMaze();
+            next = FindPathHelper.getAvailableNeighbor(current, maze);
+            current.setCurrent(false);
 
-            this.current.setCurrent(false);
-            if (next!=null){
+            if (next != null) {
                 next.setFinderVisited();
-                this.current.setPathCell(true);
+                current.setPathCell(true);
                 path.push(next);
-                if (pathFound(next) ){
-                    this.current = next;
-                    break;
-                }
             } else {
                 path.pop().setPathCell(false);
             }
-        }
-        this.current.setCurrent(false);
-        this.current.setPathCell(true);
+            current = path.peek();
+        } while (!pathFound(current));
+        current.setCurrent(false);
+        current.setPathCell(true);
+        repaintMaze();
+    }
+
+    private void repaintMaze() {
         try {
             super.repaint();
-            Thread.sleep(SPEED_DRAWING);
+            Thread.sleep(MazeConstant.SPEED_DRAWING_MILLIS);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
     }
 
-    private boolean pathFound(MazeCell current){
-        return current.getI() == maze.getCells().length-1 && current.getJ() == maze.getCells()[0].length-1;
+    private boolean pathFound(MazeCell current) {
+        return current.getI() == maze.getCells().length - 1 && current.getJ() == maze.getCells()[0].length - 1;
     }
 
 

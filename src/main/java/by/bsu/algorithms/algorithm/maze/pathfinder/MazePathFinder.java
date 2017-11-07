@@ -23,23 +23,28 @@ public class MazePathFinder {
     }
 
     public void findPath(){
+        MazeCell current = this.current;
         MazeCell next;
+
+        current.setFinderVisited();
         path.push(current);
-        while(!path.isEmpty()){
-            current = path.peek();
+
+        do {
+            current.setCurrent(true);
             next = FindPathHelper.getAvailableNeighbor(current, maze);
-            if (next!=null){
+            current.setCurrent(false);
+
+            if (next != null) {
                 next.setFinderVisited();
                 current.setPathCell(true);
                 path.push(next);
-                if (pathFound(next) ){
-                    this.current = next;
-                    break;
-                }
             } else {
                 path.pop().setPathCell(false);
             }
-        }
+            current = path.peek();
+        } while (!pathFound(current));
+        current.setCurrent(false);
+        current.setPathCell(true);
     }
 
     private boolean pathFound(MazeCell current){

@@ -6,57 +6,63 @@ import by.bsu.algorithms.algorithm.maze.MazeCell;
 
 import java.awt.*;
 
-public class Drawing {
-    private int sizeCells = 10;
+import static by.bsu.algorithms.algorithm.maze.MazeConstant.*;
 
-    public void drawMaze(Maze maze, Graphics2D g){
-        for (MazeCell[] cells: maze.getCells()) {
-            for (MazeCell cell: cells){
+public class Drawing {
+
+    public void drawMaze(Maze maze, Graphics2D g) {
+        for (MazeCell[] cells : maze.getCells()) {
+            for (MazeCell cell : cells) {
                 drawCell(cell, g);
             }
         }
     }
-    private void drawCell(MazeCell cell, Graphics2D g){
-        drawWalls(cell,g);
-        int coordinateI = cell.getI()*sizeCells+10;
-        int coordinateJ = cell.getJ()*sizeCells+10;
+
+    private void drawCell(MazeCell cell, Graphics2D g) {
+        drawWalls(cell, g);
+        int coordinateI = cell.getI() * CELL_SIZE + MARGIN;
+        int coordinateJ = cell.getJ() * CELL_SIZE + MARGIN;
 
         if (cell.isVisited()) {
-            g.setColor(Color.pink);
-
+            g.setColor(VISITED_CELL_COLOR);
         } else {
-            g.setColor(Color.WHITE);
+            g.setColor(NOT_VISITED_CELL_COLOR);
         }
-        if (cell.isFinderVisited()){
-            g.setColor(Color.yellow);
+
+        if (cell.isFinderVisited()) {
+            g.setColor(FINDER_VISITED_CELL_COLOR);
         }
-        if (cell.isPathCell()){
-            g.setColor(Color.RED);
+
+        if (cell.isPathCell()) {
+            g.setColor(PATH_CELL_COLOR);
         }
-        if (cell.isCurrent()){
-            g.setColor(Color.GREEN);
+
+        if (cell.isCurrent()) {
+            g.setColor(CURRENT_CELL_COLOR);
         }
-        g.fillRect(coordinateI, coordinateJ, sizeCells, sizeCells);
+
+        g.fillRect(coordinateI, coordinateJ, CELL_SIZE, CELL_SIZE);
     }
 
-    private void drawWalls (MazeCell cell, Graphics2D g){
-        BasicStroke pen = new BasicStroke(4);
+    private void drawWalls(MazeCell cell, Graphics2D g) {
+        BasicStroke pen = new BasicStroke(WALL_WIDTH);
         g.setStroke(pen);
-        g.setColor(Color.BLACK);
+        g.setColor(WALL_COLOR);
 
-        int coordinateI = cell.getI()*sizeCells+10;
-        int coordinateJ = cell.getJ()*sizeCells+10;
-        if (cell.getWalls()[0]){
-            g.drawLine(coordinateI, coordinateJ, coordinateI, coordinateJ+sizeCells);
+        int coordinateI = cell.getI() * CELL_SIZE + MARGIN;
+        int coordinateJ = cell.getJ() * CELL_SIZE + MARGIN;
+
+        if (cell.getWalls()[0]) {
+            g.drawLine(coordinateI, coordinateJ, coordinateI, coordinateJ + CELL_SIZE);
         }
-        if (cell.getWalls()[1]){
-            g.drawLine(coordinateI, coordinateJ+sizeCells, coordinateI+sizeCells, coordinateJ+sizeCells);
+        if (cell.getWalls()[1]) {
+            g.drawLine(coordinateI, coordinateJ + CELL_SIZE, coordinateI + CELL_SIZE, coordinateJ + CELL_SIZE);
         }
-        if (cell.getWalls()[2]){
-            g.drawLine(coordinateI+sizeCells, coordinateJ, coordinateI+sizeCells, coordinateJ+sizeCells);
+        if (cell.getWalls()[2]) {
+            g.drawLine(coordinateI + CELL_SIZE, coordinateJ, coordinateI + CELL_SIZE, coordinateJ + CELL_SIZE);
         }
-        if (cell.getWalls()[3]){
-            g.drawLine(coordinateI, coordinateJ, coordinateI+sizeCells, coordinateJ);
+        if (cell.getWalls()[3]) {
+            g.drawLine(coordinateI, coordinateJ, coordinateI + CELL_SIZE, coordinateJ);
         }
     }
 }
