@@ -25,20 +25,24 @@ public class MazePathFinder {
     public void findPath(){
         MazeCell next;
         path.push(current);
-        while(!pathFound()){
+        while(!path.isEmpty()){
             current = path.peek();
             next = FindPathHelper.getAvailableNeighbor(current, maze);
             if (next!=null){
                 next.setFinderVisited();
                 current.setPathCell(true);
                 path.push(next);
+                if (pathFound(next) ){
+                    this.current = next;
+                    break;
+                }
             } else {
                 path.pop().setPathCell(false);
             }
         }
     }
 
-    private boolean pathFound(){
+    private boolean pathFound(MazeCell current){
         return current == finish;
     }
 

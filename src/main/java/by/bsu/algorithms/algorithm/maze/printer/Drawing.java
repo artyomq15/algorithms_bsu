@@ -7,7 +7,7 @@ import by.bsu.algorithms.algorithm.maze.MazeCell;
 import java.awt.*;
 
 public class Drawing {
-    private int sizeCells = 20;
+    private int sizeCells = 10;
 
     public void drawMaze(Maze maze, Graphics2D g){
         for (MazeCell[] cells: maze.getCells()) {

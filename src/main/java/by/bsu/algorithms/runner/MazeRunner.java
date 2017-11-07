@@ -10,6 +10,6 @@ public class MazeRunner {
         MazePrinter printer = new MazePrinter();
         generator.generateMaze();*/
 
-        new MazePrinter(15,15);
+        new MazePrinter(30,30);
     }
 }
