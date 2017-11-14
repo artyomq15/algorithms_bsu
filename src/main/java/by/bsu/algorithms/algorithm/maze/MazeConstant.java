@@ -6,9 +6,9 @@ import java.awt.*;
 public final class MazeConstant {
     private MazeConstant(){}
 
-    public final static int SPEED_DRAWING_MILLIS = 50;
+    public final static int SPEED_DRAWING_MILLIS = 1;
 
-    public final static int CELL_SIZE = 20;
+    public final static int CELL_SIZE = 7;
 
     public final static int MARGIN = 10;
 

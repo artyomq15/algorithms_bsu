@@ -58,11 +58,8 @@ public class MazePrinter extends JPanel implements Runnable {
 
     @Override
     public void run() {
-
-
         generateMaze();
         findPath();
-
     }
 
     private void generateMaze() {
