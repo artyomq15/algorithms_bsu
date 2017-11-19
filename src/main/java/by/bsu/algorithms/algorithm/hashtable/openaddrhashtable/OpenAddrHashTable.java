@@ -6,7 +6,8 @@ import by.bsu.algorithms.algorithm.hashtable.HashTable;
 import java.util.Arrays;
 
 
-public class OpenAddrHashTable implements HashTable {
+public class
+OpenAddrHashTable implements HashTable {
     private int freeCells;
 
     private Long[] values;

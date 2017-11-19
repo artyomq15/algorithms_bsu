@@ -90,7 +90,7 @@ public class DijkstraAlgorithm {
         doStep();
     }
 
-    public Deque<Integer> constructPath(){
+    /*public Deque<Integer> constructPath(int finish){
         Deque<Integer> minPath = new LinkedList<>();
         minPath.addFirst(finish);
         for (int i = finish; i != start; ){
@@ -98,6 +98,20 @@ public class DijkstraAlgorithm {
             minPath.addFirst(i);
         }
         return minPath;
+    }*/
+
+    public Deque<Integer> constructPath(int finish){
+        Deque<Integer> minPath = new LinkedList<>();
+        minPath.addFirst(finish);
+        for (int i = finish; i != start; ){
+            i = parents[i];
+            minPath.addFirst(i);
+        }
+        return minPath;
+    }
+
+    public int getMinStream(int point){
+        return labels[point];
     }
 
 }

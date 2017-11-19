@@ -6,9 +6,9 @@ import java.awt.*;
 public final class MazeConstant {
     private MazeConstant(){}
 
-    public final static int SPEED_DRAWING_MILLIS = 1;
+    public final static int SPEED_DRAWING_MILLIS = 5;
 
-    public final static int CELL_SIZE = 7;
+    public final static int CELL_SIZE = 30;
 
     public final static int MARGIN = 10;
 
@@ -18,6 +18,6 @@ public final class MazeConstant {
     public final static Color PATH_CELL_COLOR = Color.RED;
     public final static Color CURRENT_CELL_COLOR = Color.GREEN;
 
-    public final static int WALL_WIDTH = 4;
+    public final static int WALL_WIDTH = 5;
     public final static Color WALL_COLOR = Color.BLACK;
 }

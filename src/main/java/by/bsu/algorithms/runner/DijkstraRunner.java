@@ -29,6 +29,8 @@ public class DijkstraRunner {
 
         DijkstraAlgorithm dijkstraAlgorithm = new DijkstraAlgorithm(graph);
         dijkstraAlgorithm.handle(0,6);
-        System.out.println(dijkstraAlgorithm.constructPath());
+        for (int i=1;i<=6;i++){
+            System.out.println(dijkstraAlgorithm.getMinStream(i) + "| to point " + i);
+        }
     }
 }
