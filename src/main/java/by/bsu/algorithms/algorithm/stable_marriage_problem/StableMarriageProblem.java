@@ -44,12 +44,6 @@ public class StableMarriageProblem {
 
     private void manStep(int man) {
         if (freeMen[man]) {
-            /*for (int i = 0; i<menMaybe.length;i++){
-                System.out.println("Man: " + menMaybe[i] + " Woman: " + i);
-            }*/
-            /*for (int i = 0; i<menMaybe.length;i++){
-                System.out.println("Man: " + i + " Woman: " + stablePairs[i]);
-            }*/
             int woman = chooseBestWoman(men[man]);
             if (women[woman][0] == man) {
                 freeMen[man] = false;
@@ -71,7 +65,6 @@ public class StableMarriageProblem {
                     continue;
                 }
                 if (womanInRange!=-1 && freeWomen[womanInRange]) {
-                    //System.out.println(womanInRange + "BEST WOMAN");
                     return womanInRange;
                 }
             }
@@ -81,14 +74,11 @@ public class StableMarriageProblem {
 
     private Integer chooseBetterMan(int woman, int newMan) {
         Integer beforeMan = menMaybe[woman];
-        //System.out.println(newMan + " kkk");
         if (beforeMan == null) {
             menMaybe[woman] = newMan;
-           // System.out.println(woman + "nullova9");
             return newMan==freeMen.length-1?0:newMan+1;
         } else {
             if (beforeMan == newMan){
-                //System.out.println(woman + "odinak");
                 return newMan==freeMen.length-1?0:newMan+1;
             }
             if (women[woman][0] == newMan){
