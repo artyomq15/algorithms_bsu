@@ -19,6 +19,8 @@ public class BSTRunner {
         binarySearchTree.insert(3);
         binarySearchTree.insert(12);
 
+        binarySearchTree.delete(10);
+
 
 
         treePrinter.printTree(binarySearchTree);

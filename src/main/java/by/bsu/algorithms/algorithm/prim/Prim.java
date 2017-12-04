@@ -67,7 +67,7 @@ public class Prim {
             result[position] = new int[]{currentVertex, nextVertex, min};
             position++;
         }
-        
+
 
         return result;
     }

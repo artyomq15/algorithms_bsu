@@ -20,7 +20,7 @@ public class PrimRunner {
                 { INF, INF, INF, INF, INF,   3, INF,   1,   0}
         };
         Prim prim = new Prim(graph, 9);
-        int[][] res = prim.getMinSkeleton(0);
+        int[][] res = prim.getMinSkeleton(3);
         int weight = 0;
 
         for (int[] arr:res){

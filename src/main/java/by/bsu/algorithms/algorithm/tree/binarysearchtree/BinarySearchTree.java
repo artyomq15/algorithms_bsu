@@ -79,7 +79,7 @@ public class BinarySearchTree {
     public void delete(int data) {
         if (isEmpty()) {
             System.out.println("Tree is empty");
-        } else if (search(data) != null) {
+        } else if (search(data) == null) {
             System.out.println("There is no such element");
         } else {
             root = delete(root, data);
